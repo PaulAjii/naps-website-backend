@@ -81,6 +81,10 @@ export const changePassword = async (req, res, next) => {
     }
 
     user.password = newPassword;
+
+    if (user.isFirstLogin) {
+      user.isFirstLogin = false;
+    }
     await user.save();
 
     const userObj = user.toObject();
